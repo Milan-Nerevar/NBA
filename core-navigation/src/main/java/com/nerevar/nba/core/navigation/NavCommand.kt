@@ -8,10 +8,9 @@ import com.github.terrakok.modo.stack.StackScreen
 import com.github.terrakok.modo.stack.StackState
 import kotlinx.coroutines.flow.Flow
 
-interface NavCommand
 
 @Composable
-inline fun <reified T : NavCommand> Flow<T>.subscribeToNavCommand(
+inline fun <reified T> Flow<T>.subscribeToNavCommand(
     crossinline collector: NavigationContainer<StackState>.(command: T) -> Unit
 ) {
     val navigatorScreen = LocalContainerScreen.current as StackScreen

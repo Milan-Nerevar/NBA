@@ -19,14 +19,23 @@ import com.skydoves.landscapist.glide.GlideImage
 
 sealed interface ImageResource {
 
+    /**
+     * Image represented by [url].
+     */
     @Immutable
     @JvmInline
     value class ByUrl(val url: String) : ImageResource
 
+    /**
+     * Image represented by and android resource [res].
+     */
     @Immutable
     @JvmInline
     value class ByDrawable(@DrawableRes val res: Int) : ImageResource
 
+    /**
+     * Image represented by compose [color]. Note: Primarily used in compose previews.
+     */
     @Immutable
     @JvmInline
     value class ByComposeColor(val color: Color) : ImageResource

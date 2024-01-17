@@ -39,7 +39,7 @@ internal class PlayerListViewModel(
                                 name = stringResource(player.firstName),
                                 surname = stringResource(player.lastName),
                                 position = stringResource(player.position),
-                                club = stringResource(player.team.name),
+                                club = stringResource(player.team.abbreviation),
                             ) {
                                 navigateToPlayerDetail(player.id)
                             }

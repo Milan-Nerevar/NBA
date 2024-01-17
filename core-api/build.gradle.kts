@@ -19,7 +19,7 @@ android {
 }
 
 dependencies {
-    implementation(project(":core-networking"))
+    api(project(":core-networking"))
     api(project(":core-domain"))
     api(libs.koin)
 }

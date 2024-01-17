@@ -106,7 +106,7 @@ internal class PlayerListRepositoryImpl(
                         )
                     }
 
-//                    isLastPage = result.meta.currentPage == result.meta.totalPages
+                    isLastPage = result.meta.currentPage == result.meta.totalPages
                     currentPageIndex = result.meta.currentPage
                     players.update { new }
                 }

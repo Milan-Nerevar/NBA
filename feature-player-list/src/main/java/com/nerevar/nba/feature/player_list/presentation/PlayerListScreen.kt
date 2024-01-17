@@ -63,7 +63,9 @@ private fun PlayerListScreenInternal(state: UIState<PlayerListState?>) {
         PlayerListData(
             state = data,
             isLoading = state.isLoading,
-            modifier = Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background)
+            modifier = Modifier
+                .fillMaxSize()
+                .background(MaterialTheme.colorScheme.background)
         )
     }
 
@@ -86,7 +88,10 @@ private fun PlayerListData(
         modifier = modifier,
         onRefresh = state.onScrolledToTheEnd
     ) {
-        itemsIndexed(state.players) { index, item ->
+        itemsIndexed(
+            items = state.players,
+            contentType = { _, item -> item.contentType }
+        ) { index, item ->
             if (index != 0) {
                 Divider(Modifier.fillMaxWidth())
             }

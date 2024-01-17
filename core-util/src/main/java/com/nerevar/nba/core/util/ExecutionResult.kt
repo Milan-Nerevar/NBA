@@ -7,8 +7,11 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.onEach
 
 sealed interface ExecutionResult<out T> {
+
     data object Loading : ExecutionResult<Nothing>
+
     data class Data<out T>(val data: T) : ExecutionResult<T>
+
     data class Error(val exception: Exception) : ExecutionResult<Nothing>
 }
 

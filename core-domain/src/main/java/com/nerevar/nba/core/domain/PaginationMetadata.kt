@@ -7,7 +7,7 @@ import com.squareup.moshi.JsonClass
 data class PaginationMetadata(
     @Json(name = "current_page") val currentPage: Int,
     @Json(name = "next_page") val nextPage: Int,
-//    @Json(name = "total_pages") val totalPages: Int?,
+    @Json(name = "total_pages") val totalPages: Int?,
     @Json(name = "per_page") val perPage: Int,
-//    @Json(name = "total_count") val totalCount: Int?
+    @Json(name = "total_count") val totalCount: Int?
 )
