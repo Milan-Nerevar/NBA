@@ -15,6 +15,9 @@ import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import com.bumptech.glide.RequestBuilder
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.request.RequestOptions
 import com.skydoves.landscapist.glide.GlideImage
 
 sealed interface ImageResource {
@@ -70,6 +73,11 @@ fun ImageResource.Compose(
         is ImageResource.ByUrl -> GlideImage(
             imageModel = { url },
             modifier = modifier.clip(shape),
+            requestOptions = {
+                RequestOptions()
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .skipMemoryCache(true)
+            },
         )
 
         is ImageResource.ByComposeColor -> Box(modifier = modifier.background(color, shape))

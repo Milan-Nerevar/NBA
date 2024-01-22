@@ -8,6 +8,7 @@ import com.nerevar.nba.core.compose.UIState
 import com.nerevar.nba.core.compose.imageResource
 import com.nerevar.nba.core.compose.stringResource
 import com.nerevar.nba.core.domain.PlayerDto
+import com.nerevar.nba.core.random_image.RandomImageUseCase
 import com.nerevar.nba.core.resources.R
 import com.nerevar.nba.core.util.ExecutionResult
 import com.nerevar.nba.core.util.execute
@@ -27,6 +28,7 @@ import kotlinx.coroutines.launch
 internal class PlayerDetailViewModel(
     private val id: Int,
     private val loadPlayer: PlayerDetailUseCase,
+    private val randomImage: RandomImageUseCase
 ) : ViewModel() {
 
     private val playerResult = executionFlow<PlayerDto>()
@@ -36,18 +38,24 @@ internal class PlayerDetailViewModel(
             when (result) {
                 is ExecutionResult.Data -> UIState(
                     data = PlayerDetailState(
-                        image = imageResource(HARD_CODED_URL),
+                        image = imageResource(randomImage()),
                         name = stringResource(result.data.firstName),
                         surname = stringResource(result.data.lastName),
-                        position = stringResource(result.data.position),
+                        position = result.data.position
+                            .takeIf { it.isNotBlank() }
+                            ?.let {
+                                stringResource(it)
+                            },
                         club = stringResource(result.data.team.name),
-                        height = stringResource(
-                            listOfNotNull(
-                                result.data.heightFeet,
-                                result.data.heightInches
-                            ).joinToString(" ")
-                        ),
-                        weight = result.data.weightPounds?.let { stringResource(it) },
+                        height = listOfNotNull(
+                            result.data.heightFeet,
+                            result.data.heightInches
+                        ).joinToString(" ")
+                            .takeIf { it.isNotBlank() }
+                            ?.let {
+                                stringResource(it)
+                            },
+                        weight = result.data.weightPounds?.let { stringResource(it.toString()) },
                         clubButton = ButtonState(stringResource(button_navigate_to_club))
                         {
                             navigateToClubDetail(result.data.team.id)
@@ -99,4 +107,3 @@ internal class PlayerDetailViewModel(
     }
 }
 
-private const val HARD_CODED_URL = "https://fastly.picsum.photos/id/64/4326/2884.jpg?hmac=9_SzX666YRpR_fOyYStXpfSiJ_edO3ghlSRnH2w09Kg"

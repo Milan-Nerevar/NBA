@@ -7,6 +7,7 @@ import com.nerevar.nba.core.compose.ErrorState
 import com.nerevar.nba.core.compose.UIState
 import com.nerevar.nba.core.compose.imageResource
 import com.nerevar.nba.core.compose.stringResource
+import com.nerevar.nba.core.random_image.RandomImageUseCase
 import com.nerevar.nba.core.resources.R
 import com.nerevar.nba.core.util.ExecutionResult
 import com.nerevar.nba.feature.player_list.infrastructure.PlayerListNextPageUseCase
@@ -25,7 +26,8 @@ import kotlinx.coroutines.launch
 internal class PlayerListViewModel(
     private val playerList: PlayerListUseCase,
     private val reload: PlayerListReloadUseCase,
-    private val nextPage: PlayerListNextPageUseCase
+    private val nextPage: PlayerListNextPageUseCase,
+    private val randomImage: RandomImageUseCase
 ) : ViewModel() {
 
     val state: StateFlow<UIState<PlayerListState?>> = playerList()
@@ -35,7 +37,7 @@ internal class PlayerListViewModel(
                     data = PlayerListState(
                         players = result.data.players.map { player ->
                             PlayerRowState(
-                                image = imageResource(HARD_CODED_URL),
+                                image = imageResource(randomImage()),
                                 name = stringResource(player.firstName),
                                 surname = stringResource(player.lastName),
                                 position = stringResource(player.position),
@@ -82,7 +84,3 @@ internal class PlayerListViewModel(
         _navigationCommand.emit(PlayerListNavCommand.PlayerDetail(id))
     }
 }
-
-private const val HARD_CODED_URL =
-    "https://fastly.picsum.photos/id/64/4326/2884.jpg?hmac=9_SzX666YRpR_fOyYStXpfSiJ_edO3ghlSRnH2w09Kg"
-

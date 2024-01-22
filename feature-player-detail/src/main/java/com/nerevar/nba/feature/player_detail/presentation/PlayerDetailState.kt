@@ -10,7 +10,7 @@ internal data class PlayerDetailState(
     val image: ImageResource,
     val name: StringResource,
     val surname: StringResource,
-    val position: StringResource,
+    val position: StringResource?,
     val height: StringResource?,
     val weight: StringResource?,
     val club: StringResource,

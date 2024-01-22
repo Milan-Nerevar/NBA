@@ -7,8 +7,8 @@ import com.nerevar.nba.core.compose.ErrorState
 import com.nerevar.nba.core.compose.UIState
 import com.nerevar.nba.core.compose.imageResource
 import com.nerevar.nba.core.compose.stringResource
-import com.nerevar.nba.core.domain.PlayerDto
 import com.nerevar.nba.core.domain.TeamDto
+import com.nerevar.nba.core.random_image.RandomImageUseCase
 import com.nerevar.nba.core.resources.R
 import com.nerevar.nba.core.util.ExecutionResult
 import com.nerevar.nba.core.util.execute
@@ -23,7 +23,8 @@ import kotlinx.coroutines.flow.stateIn
 
 internal class ClubDetailViewModel(
     private val id: Int,
-    private val loadClub: ClubDetailUseCase
+    private val loadClub: ClubDetailUseCase,
+    private val randomImage: RandomImageUseCase
 ) : ViewModel() {
 
     private val clubResult = executionFlow<TeamDto>()
@@ -33,13 +34,13 @@ internal class ClubDetailViewModel(
             when (result) {
                 is ExecutionResult.Data -> UIState(
                     data = ClubDetailState(
-                        image = imageResource(HARD_CODED_URL),
+                        image = imageResource(randomImage()),
                         city = stringResource(result.data.city),
                         name = stringResource(result.data.name),
                         division = stringResource(result.data.division),
                         conference = stringResource(result.data.conference),
 
-                    ),
+                        ),
                     isLoading = false
                 )
 
@@ -78,5 +79,3 @@ internal class ClubDetailViewModel(
             .launchIn(viewModelScope)
     }
 }
-
-private const val HARD_CODED_URL = "https://fastly.picsum.photos/id/64/4326/2884.jpg?hmac=9_SzX666YRpR_fOyYStXpfSiJ_edO3ghlSRnH2w09Kg"

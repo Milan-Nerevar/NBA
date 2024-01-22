@@ -26,6 +26,7 @@ android {
 }
 
 dependencies {
+    implementation(project(":core-random-images"))
     api(project(":core-util"))
     api(project(":core-resources"))
     api(project(":core-compose"))

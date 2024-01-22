@@ -45,6 +45,7 @@ android {
 }
 
 dependencies {
+    implementation(project(":core-random-images"))
     implementation(project(":core-networking"))
     implementation(project(":core-api"))
     implementation(project(":feature-player-list"))

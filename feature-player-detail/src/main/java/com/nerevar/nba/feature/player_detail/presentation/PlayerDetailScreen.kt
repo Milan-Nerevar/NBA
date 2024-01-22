@@ -51,7 +51,8 @@ class PlayerDetailScreen(
 
     @Composable
     override fun Content() {
-        val viewModel = koinViewModel<PlayerDetailViewModel> { parametersOf(id) }
+        val viewModel =
+            koinViewModel<PlayerDetailViewModel>(key = "PlayerDetailScreen_$id") { parametersOf(id) }
         val navDestination = koinInject<NavDestination>()
         viewModel.navigationCommand.subscribeToNavCommand {
             when (it) {
