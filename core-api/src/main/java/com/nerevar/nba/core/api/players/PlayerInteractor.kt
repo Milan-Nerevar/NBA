@@ -9,7 +9,7 @@ interface PlayerInteractor {
     suspend fun getPlayers(page: Int): PaginationData<PlayerDto>
 }
 
-class PlayerInteractorImpl(
+internal class PlayerInteractorImpl(
     private val playerApi: PlayerApi,
 ) : PlayerInteractor, RemoteInteractor by RemoteInteractor() {
     override suspend fun getPlayerDetail(id: Int): PlayerDto = networkCall {

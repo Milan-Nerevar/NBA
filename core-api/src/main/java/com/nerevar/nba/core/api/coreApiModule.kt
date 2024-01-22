@@ -1,6 +1,5 @@
-package com.nerevar.nba.core.api.di
+package com.nerevar.nba.core.api
 
-import com.nerevar.nba.core.api.R
 import com.nerevar.nba.core.api.players.PlayerApi
 import com.nerevar.nba.core.api.players.PlayerInteractor
 import com.nerevar.nba.core.api.players.PlayerInteractorImpl
